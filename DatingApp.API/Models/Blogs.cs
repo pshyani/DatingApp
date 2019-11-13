@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace BlogWebSiteAPI.Models
+{
+    public partial class Blogs
+    {
+        public Blogs()
+        {
+            BlogComments = new HashSet<BlogComments>();
+        }
+
+        public int BlogId { get; set; }
+        public string UserName { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public DateTime? Datecreated { get; set; }
+
+        public ICollection<BlogComments> BlogComments { get; set; }
+    }
+}
