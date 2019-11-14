@@ -67,7 +67,10 @@ namespace BlogWebSiteAPI.Controllers
 
             }
             else
-                return Unauthorized();
+            {                  
+                return StatusCode(500, "Failed to login"); 
+            }
+               
         }
 
 
@@ -83,7 +86,7 @@ namespace BlogWebSiteAPI.Controllers
 
             bool bDuplicateaUserName = await _usersRepository.UserExists(userForRegister.userName);
             if (bDuplicateaUserName)
-               return Conflict("Duplicate UserName");
+               return StatusCode(400, "UserName is already exists");
 
             var user = new Users
             {
@@ -91,8 +94,7 @@ namespace BlogWebSiteAPI.Controllers
                 Email = userForRegister.email
             };
 
-            user = await _usersRepository.Register(user, userForRegister.password);
-
+            user = await _usersRepository.Register(user, userForRegister.password);         
 
             var results = new ObjectResult(user)
             {
