@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [Dating]    Script Date: 07/15/2019 10:23:09 AM ******/
+/****** Object:  Database [Dating]    Script Date: 11/15/2019 11:40:18 AM ******/
 CREATE DATABASE [Dating]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -73,12 +73,12 @@ ALTER DATABASE [Dating] SET TARGET_RECOVERY_TIME = 0 SECONDS
 GO
 USE [Dating]
 GO
-/****** Object:  User [Dating]    Script Date: 11/15/2019 10:23:09 AM ******/
+/****** Object:  User [Dating]    Script Date: 11/15/2019 11:40:19 AM ******/
 CREATE USER [Dating] WITHOUT LOGIN WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [Dating]
 GO
-/****** Object:  Table [dbo].[BlogComments]    Script Date: 11/15/2019 10:23:09 AM ******/
+/****** Object:  Table [dbo].[BlogComments]    Script Date: 11/15/2019 11:40:19 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -88,7 +88,7 @@ CREATE TABLE [dbo].[BlogComments](
 	[userName] [nvarchar](500) NOT NULL,
 	[BlogId] [int] NOT NULL,
 	[comment] [nvarchar](500) NULL,
-	[datecreated] [datetime] NULL CONSTRAINT [DF_BlogsDetails_datecreated]  DEFAULT (getdate()),
+	[datecreated] [datetime] NULL,
  CONSTRAINT [PK_BlogsDetails] PRIMARY KEY CLUSTERED 
 (
 	[BlogCommentsId] ASC
@@ -96,7 +96,7 @@ CREATE TABLE [dbo].[BlogComments](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Blogs]    Script Date: 11/15/2019 10:23:09 AM ******/
+/****** Object:  Table [dbo].[Blogs]    Script Date: 11/15/2019 11:40:19 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -106,7 +106,7 @@ CREATE TABLE [dbo].[Blogs](
 	[userName] [nvarchar](500) NOT NULL,
 	[title] [nvarchar](100) NULL,
 	[Description] [nvarchar](1000) NULL,
-	[datecreated] [datetime] NULL CONSTRAINT [DF_Table_1_datePosted]  DEFAULT (getdate()),
+	[datecreated] [datetime] NULL,
  CONSTRAINT [PK_Blogs] PRIMARY KEY CLUSTERED 
 (
 	[BlogId] ASC
@@ -114,7 +114,7 @@ CREATE TABLE [dbo].[Blogs](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Ingredient]    Script Date: 11/15/2019 10:23:09 AM ******/
+/****** Object:  Table [dbo].[Ingredient]    Script Date: 11/15/2019 11:40:19 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -135,26 +135,26 @@ CREATE TABLE [dbo].[Ingredient](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[Photo]    Script Date: 11/15/2019 10:23:09 AM ******/
+/****** Object:  Table [dbo].[photos]    Script Date: 11/15/2019 11:40:19 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Photo](
+CREATE TABLE [dbo].[photos](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Url] [nvarchar](max) NULL,
 	[Description] [nvarchar](max) NULL,
 	[DateAdded] [datetime] NULL,
 	[IsMain] [bit] NULL,
-	[UserId] [int] NULL,
- CONSTRAINT [PK_Photo] PRIMARY KEY CLUSTERED 
+	[UserId] [int] NOT NULL,
+ CONSTRAINT [PK_photos] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Recipe]    Script Date: 11/15/2019 10:23:09 AM ******/
+/****** Object:  Table [dbo].[Recipe]    Script Date: 11/15/2019 11:40:19 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -172,7 +172,7 @@ CREATE TABLE [dbo].[Recipe](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[RecipeIngredient]    Script Date: 11/15/2019 10:23:09 AM ******/
+/****** Object:  Table [dbo].[RecipeIngredient]    Script Date: 11/15/2019 11:40:19 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -189,7 +189,7 @@ CREATE TABLE [dbo].[RecipeIngredient](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 11/15/2019 10:23:09 AM ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 11/15/2019 11:40:19 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -198,20 +198,20 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[Users](
 	[UserId] [int] IDENTITY(1,1) NOT NULL,
-	[UserName] [nvarchar](256) NULL,
-	[Email] [nvarchar](256) NULL,
+	[UserName] [nvarchar](max) NULL,
+	[Email] [nvarchar](max) NULL,
 	[PasswordHash] [varbinary](max) NULL,
 	[PasswordSalt] [varbinary](max) NULL,
-	[Gender] [nvarchar](256) NULL,
+	[Gender] [nvarchar](max) NULL,
 	[DateOfBirth] [datetime] NULL,
-	[KnownAs] [nvarchar](256) NULL,
-	[Created] [datetime] NULL CONSTRAINT [DF_Users_Created]  DEFAULT (getdate()),
-	[LastActive] [datetime] NULL CONSTRAINT [DF_Users_LastActive]  DEFAULT (getdate()),
-	[Introduction] [nvarchar](256) NULL,
-	[LookingFor] [nvarchar](256) NULL,
-	[Interests] [nvarchar](256) NULL,
-	[City] [nvarchar](256) NULL,
-	[Country] [nvarchar](256) NULL,
+	[KnownAs] [nvarchar](max) NULL,
+	[Created] [datetime] NULL,
+	[LastActive] [datetime] NULL,
+	[Introduction] [nvarchar](max) NULL,
+	[LookingFor] [nvarchar](max) NULL,
+	[Interests] [nvarchar](max) NULL,
+	[City] [nvarchar](max) NULL,
+	[Country] [nvarchar](max) NULL,
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
 	[UserId] ASC
@@ -221,17 +221,25 @@ CREATE TABLE [dbo].[Users](
 GO
 SET ANSI_PADDING OFF
 GO
-ALTER TABLE [dbo].[Photo] ADD  CONSTRAINT [DF_Photo_DateAdded]  DEFAULT (getdate()) FOR [DateAdded]
+ALTER TABLE [dbo].[BlogComments] ADD  CONSTRAINT [DF_BlogsDetails_datecreated]  DEFAULT (getdate()) FOR [datecreated]
+GO
+ALTER TABLE [dbo].[Blogs] ADD  CONSTRAINT [DF_Table_1_datePosted]  DEFAULT (getdate()) FOR [datecreated]
+GO
+ALTER TABLE [dbo].[photos] ADD  CONSTRAINT [DF_photos_DateAdded]  DEFAULT (getdate()) FOR [DateAdded]
+GO
+ALTER TABLE [dbo].[Users] ADD  CONSTRAINT [DF_Users_Created]  DEFAULT (getdate()) FOR [Created]
+GO
+ALTER TABLE [dbo].[Users] ADD  CONSTRAINT [DF_Users_LastActive]  DEFAULT (getdate()) FOR [LastActive]
 GO
 ALTER TABLE [dbo].[BlogComments]  WITH CHECK ADD  CONSTRAINT [FK_BlogComments_Blogs] FOREIGN KEY([BlogId])
 REFERENCES [dbo].[Blogs] ([BlogId])
 GO
 ALTER TABLE [dbo].[BlogComments] CHECK CONSTRAINT [FK_BlogComments_Blogs]
 GO
-ALTER TABLE [dbo].[Photo]  WITH CHECK ADD  CONSTRAINT [FK_Photo_Users] FOREIGN KEY([UserId])
+ALTER TABLE [dbo].[photos]  WITH CHECK ADD  CONSTRAINT [FK_photos_Users] FOREIGN KEY([UserId])
 REFERENCES [dbo].[Users] ([UserId])
 GO
-ALTER TABLE [dbo].[Photo] CHECK CONSTRAINT [FK_Photo_Users]
+ALTER TABLE [dbo].[photos] CHECK CONSTRAINT [FK_photos_Users]
 GO
 ALTER TABLE [dbo].[RecipeIngredient]  WITH CHECK ADD  CONSTRAINT [FK_ReceipeIngredient_Ingredient] FOREIGN KEY([ingredientId])
 REFERENCES [dbo].[Ingredient] ([uniqID])
@@ -248,5 +256,4 @@ GO
 ALTER DATABASE [Dating] SET  READ_WRITE 
 GO
 
-
--- dotnet ef dbcontext scaffold "Server=TEST\TEST;Database=Dating;Trusted_Connection=True;MultipleActiveResultSets=true;user Id=dating;password=dating" Microsoft.EntityFrameworkCore.SqlServer -o Models -f
+-- dotnet ef dbcontext scaffold "Server=PSHYANI\SQL2012;Database=Dating;Trusted_Connection=True;MultipleActiveResultSets=true;user Id=dating;password=dating" Microsoft.EntityFrameworkCore.SqlServer -o Models -f

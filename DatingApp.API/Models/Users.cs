@@ -7,7 +7,7 @@ namespace DatingApp.API.Models
     {
         public Users()
         {
-            Photo = new HashSet<Photo>();
+            Photos = new HashSet<Photos>();
         }
 
         public int UserId { get; set; }
@@ -26,6 +26,6 @@ namespace DatingApp.API.Models
         public string City { get; set; }
         public string Country { get; set; }
 
-        public ICollection<Photo> Photo { get; set; }
+        public ICollection<Photos> Photos { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace DatingApp.API
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IBlogsRepository, BlogsRepository>();
             services.AddScoped<IBlogCommentsRepository, BlogCommentsRepository>();
-          
+            services.AddScoped<IDatingRepository, DatingRepository>();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

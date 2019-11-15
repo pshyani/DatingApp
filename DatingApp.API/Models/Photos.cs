@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DatingApp.API.Models
 {
-    public partial class Photo
+    public partial class Photos
     {
         public int Id { get; set; }
         public string Url { get; set; }

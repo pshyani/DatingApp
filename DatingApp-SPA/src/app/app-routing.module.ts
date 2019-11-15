@@ -12,13 +12,13 @@ const routes: Routes = [
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
-    children : [
+    children: [
       { path: 'members', component: MemberListComponent },
       { path: 'messages', component: MessagesComponent },
-      { path: 'lists', component: ListsComponent },
+      { path: 'lists', component: ListsComponent }
     ]
   },
- 
+
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
