@@ -16,6 +16,6 @@ namespace DatingApp.API.Models
         public string ImagePath { get; set; }
         public string UserName { get; set; }
 
-        public ICollection<RecipeIngredient> RecipeIngredient { get; set; }
+        public virtual ICollection<RecipeIngredient> RecipeIngredient { get; set; }
     }
 }

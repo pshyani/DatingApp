@@ -23,6 +23,8 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using DatingApp.API.Helpers;
+using DatingApp.API.Data;
+using AutoMapper;
 
 namespace DatingApp.API
 {
@@ -38,21 +40,20 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DatingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc(option => option.EnableEndpointRouting = false);                    
+            services.AddCors();
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
+            services.AddControllers().AddNewtonsoftJson( options => {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
+            services.AddTransient<seed>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IBlogsRepository, BlogsRepository>();
             services.AddScoped<IBlogCommentsRepository, BlogCommentsRepository>();
-            services.AddScoped<IDatingRepository, DatingRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();       
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options => {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
-
-            services.AddDbContext<DatingContext>(options =>
-               options.UseSqlServer(
-                   Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddCors();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

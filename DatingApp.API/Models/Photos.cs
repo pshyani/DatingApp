@@ -12,6 +12,6 @@ namespace DatingApp.API.Models
         public bool? IsMain { get; set; }
         public int UserId { get; set; }
 
-        public Users User { get; set; }
+        public virtual Users User { get; set; }
     }
 }

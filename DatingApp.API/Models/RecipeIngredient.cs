@@ -10,7 +10,7 @@ namespace DatingApp.API.Models
         public int IngredientId { get; set; }
         public string UserName { get; set; }
 
-        public Ingredient Ingredient { get; set; }
-        public Recipe Recipe { get; set; }
+        public virtual Ingredient Ingredient { get; set; }
+        public virtual Recipe Recipe { get; set; }
     }
 }

@@ -16,11 +16,11 @@ namespace DatingApp.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AccountController : Controller
+    public class AuthController : Controller
     {
         private readonly IUsersRepository _usersRepository;
         private IConfiguration _config;
-        public AccountController(IUsersRepository usersRepository, IConfiguration config)
+        public AuthController(IUsersRepository usersRepository, IConfiguration config)
         {
             _config = config;
             _usersRepository = usersRepository;

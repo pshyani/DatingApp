@@ -22,7 +22,7 @@ namespace DatingApp.API.Models
         public virtual DbSet<Recipe> Recipe { get; set; }
         public virtual DbSet<RecipeIngredient> RecipeIngredient { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-      
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BlogComments>(entity =>
@@ -126,7 +126,8 @@ namespace DatingApp.API.Models
 
             modelBuilder.Entity<RecipeIngredient>(entity =>
             {
-                entity.HasKey(e => e.UniqId);
+                entity.HasKey(e => e.UniqId)
+                    .HasName("PK_ReceipeIngredient");
 
                 entity.Property(e => e.UniqId).HasColumnName("uniqID");
 
@@ -165,6 +166,10 @@ namespace DatingApp.API.Models
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
             });
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

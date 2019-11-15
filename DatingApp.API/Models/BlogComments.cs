@@ -11,6 +11,6 @@ namespace DatingApp.API.Models
         public string Comment { get; set; }
         public DateTime? Datecreated { get; set; }
 
-        public Blogs Blog { get; set; }
+        public virtual Blogs Blog { get; set; }
     }
 }

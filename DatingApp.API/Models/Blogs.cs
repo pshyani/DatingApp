@@ -16,6 +16,6 @@ namespace DatingApp.API.Models
         public string Description { get; set; }
         public DateTime? Datecreated { get; set; }
 
-        public ICollection<BlogComments> BlogComments { get; set; }
+        public virtual ICollection<BlogComments> BlogComments { get; set; }
     }
 }

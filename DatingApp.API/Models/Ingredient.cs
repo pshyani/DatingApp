@@ -15,6 +15,6 @@ namespace DatingApp.API.Models
         public int? Amount { get; set; }
         public byte[] UserName { get; set; }
 
-        public ICollection<RecipeIngredient> RecipeIngredient { get; set; }
+        public virtual ICollection<RecipeIngredient> RecipeIngredient { get; set; }
     }
 }
