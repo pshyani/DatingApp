@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlogWebSiteAPI.Contracts
+namespace DatingApp.API.Contracts
 {
     interface IIngredient
     {

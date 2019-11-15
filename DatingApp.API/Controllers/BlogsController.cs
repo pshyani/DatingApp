@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlogWebSiteAPI.Models;
-using BlogWebSiteAPI.Contracts;
+using DatingApp.API.Models;
+using DatingApp.API.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BlogWebSiteAPI.Controllers
+namespace DatingApp.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/Blogs")]

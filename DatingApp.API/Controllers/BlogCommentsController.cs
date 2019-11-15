@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using BlogWebSiteAPI.Contracts;
-using BlogWebSiteAPI.Models;
+using DatingApp.API.Contracts;
+using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace BlogWebSiteAPI.Controllers
+namespace DatingApp.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/BlogComments")]

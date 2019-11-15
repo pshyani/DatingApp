@@ -1,18 +1,18 @@
-﻿using BlogWebSiteAPI.Contracts;
-using BlogWebSiteAPI.Models;
+﻿using DatingApp.API.Contracts;
+using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlogWebSiteAPI.Repositories
+namespace DatingApp.API.Repositories
 {
     public class UsersRepository : IUsersRepository
     {
-        private testAPIContext _context;
+        private DatingContext _context;
 
-        public UsersRepository(testAPIContext context)
+        public UsersRepository(DatingContext context)
         {
             _context = context;
         }

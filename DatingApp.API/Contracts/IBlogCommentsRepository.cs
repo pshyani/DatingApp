@@ -1,10 +1,10 @@
-﻿using BlogWebSiteAPI.Models;
+﻿using DatingApp.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlogWebSiteAPI.Contracts
+namespace DatingApp.API.Contracts
 {
     public interface IBlogCommentsRepository
     {

@@ -6,13 +6,13 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using BlogWebSiteAPI.Contracts;
-using BlogWebSiteAPI.Models;
+using DatingApp.API.Contracts;
+using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BlogWebSiteAPI.Controllers
+namespace DatingApp.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

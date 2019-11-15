@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace BlogWebSiteAPI.Models
+namespace DatingApp.API.Models
 {
-    public partial class testAPIContext : DbContext
+    public partial class DatingContext : DbContext
     {
-        public testAPIContext()
+        public DatingContext()
         {
         }
 
-        public testAPIContext(DbContextOptions<testAPIContext> options)
+        public DatingContext(DbContextOptions<DatingContext> options)
             : base(options)
         {
         }
@@ -18,10 +18,11 @@ namespace BlogWebSiteAPI.Models
         public virtual DbSet<BlogComments> BlogComments { get; set; }
         public virtual DbSet<Blogs> Blogs { get; set; }
         public virtual DbSet<Ingredient> Ingredient { get; set; }
+        public virtual DbSet<Photo> Photo { get; set; }
         public virtual DbSet<Recipe> Recipe { get; set; }
         public virtual DbSet<RecipeIngredient> RecipeIngredient { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-     
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BlogComments>(entity =>
@@ -85,6 +86,18 @@ namespace BlogWebSiteAPI.Models
                     .HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Photo>(entity =>
+            {
+                entity.Property(e => e.DateAdded)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Photo)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Photo_Users");
+            });
+
             modelBuilder.Entity<Recipe>(entity =>
             {
                 entity.HasKey(e => e.UniqId);
@@ -139,7 +152,31 @@ namespace BlogWebSiteAPI.Models
             {
                 entity.HasKey(e => e.UserId);
 
+                entity.Property(e => e.City).HasMaxLength(256);
+
+                entity.Property(e => e.Country).HasMaxLength(256);
+
+                entity.Property(e => e.Created)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DateOfBirth).HasColumnType("datetime");
+
                 entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.Gender).HasMaxLength(256);
+
+                entity.Property(e => e.Interests).HasMaxLength(256);
+
+                entity.Property(e => e.Introduction).HasMaxLength(256);
+
+                entity.Property(e => e.KnownAs).HasMaxLength(256);
+
+                entity.Property(e => e.LastActive)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.LookingFor).HasMaxLength(256);
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
             });

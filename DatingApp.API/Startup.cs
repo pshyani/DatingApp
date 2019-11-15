@@ -10,10 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using BlogWebSiteAPI.Models;
+using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
-using BlogWebSiteAPI.Contracts;
-using BlogWebSiteAPI.Repositories;
+using DatingApp.API.Contracts;
+using DatingApp.API.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,9 +22,9 @@ using System.Text;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using BlogWebSiteAPI.Helpers;
+using DatingApp.API.Helpers;
 
-namespace BlogWebSiteAPI
+namespace DatingApp.API
 {
     public class Startup
     {
@@ -47,7 +47,7 @@ namespace BlogWebSiteAPI
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
-            services.AddDbContext<testAPIContext>(options =>
+            services.AddDbContext<DatingContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("DefaultConnection")));
 
