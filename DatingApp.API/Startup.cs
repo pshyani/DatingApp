@@ -40,7 +40,10 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DatingContext>(options => {
+                options.UseLazyLoadingProxies();
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
             services.AddMvc(option => option.EnableEndpointRouting = false);                    
             services.AddCors();
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
@@ -90,11 +93,18 @@ namespace DatingApp.API
               });  
             }
             app.UseHsts();
+            app.UseRouting();
             app.UseAuthentication();
-            //app.UseHttpsRedirection();
-            app.UseAuthentication();
+            app.UseAuthorization();
+            //app.UseHttpsRedirection();           
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseMvc();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseEndpoints(endPoints => {
+                endPoints.MapControllers();
+                endPoints.MapFallbackToController("Index", "Fallback");
+            });
         }
     }
 }

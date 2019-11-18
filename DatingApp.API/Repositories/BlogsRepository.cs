@@ -57,7 +57,7 @@ namespace DatingApp.API.Repositories
         {
             try
             {
-                var blog = await _context.Blogs.Include(P =>P.BlogComments).SingleAsync(P => P.BlogId == id);
+                var blog = await _context.Blogs.SingleAsync(P => P.BlogId == id);
 
                 foreach (var bc in blog.BlogComments)
                     _context.BlogComments.Remove(bc);
