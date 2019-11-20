@@ -56,7 +56,7 @@ namespace DatingApp.API
             services.AddScoped<IBlogsRepository, BlogsRepository>();
             services.AddScoped<IBlogCommentsRepository, BlogCommentsRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();       
-            
+            services.AddScoped<LogUserActivity>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

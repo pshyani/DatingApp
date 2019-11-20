@@ -7,18 +7,22 @@ import { AlertifyService } from '../_services/alertify.service';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class memberDetailsResolver implements Resolve<User> {
-    constructor(private userservice: UserService, 
-                private router: Router,
-                private alertify: AlertifyService) { }
+export class MemberDetailsResolver implements Resolve<User> {
+  constructor(
+    private userservice: UserService,
+    private router: Router,
+    private alertify: AlertifyService
+  ) {}
 
-    resolve(route: ActivatedRouteSnapshot): Observable<User> | Promise<User> | User {
-        return this.userservice.getUser(+route.params['id']).pipe(
-            catchError(error => {
-                this.alertify.error(error);
-                this.router.navigate(['/members']);
-                return of(null);
-            })
-        );
-    } 
+  resolve(
+    route: ActivatedRouteSnapshot
+  ): Observable<User> | Promise<User> | User {
+    return this.userservice.getUser(+route.params['id']).pipe(
+      catchError(error => {
+        this.alertify.error(error);
+        this.router.navigate(['/members']);
+        return of(null);
+      })
+    );
+  }
 }

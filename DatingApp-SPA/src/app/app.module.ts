@@ -4,8 +4,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BsDropdownModule, TabsModule, PaginationModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -13,7 +14,6 @@ import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -22,10 +22,10 @@ import { MemeberDetailsComponent } from './members/memeber-details/memeber-detai
 
 
 export function tokenGetter() {
-   return localStorage.getItem("token");
+   return localStorage.getItem('token');
  }
 
- export class CustomHammerConfig extends HammerGestureConfig  {
+ export class CustomHammerConfig extends HammerGestureConfig {
    overrides = {
        pinch: { enable: false },
        rotate: { enable: false }
@@ -42,7 +42,8 @@ export function tokenGetter() {
       ListsComponent,
       MessagesComponent,
       MemberCardComponent,
-      MemeberDetailsComponent
+      MemeberDetailsComponent,
+      TimeAgoPipe
    ],
    imports: [
       BrowserModule,
@@ -52,6 +53,7 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       NgxGalleryModule,
+      PaginationModule.forRoot(),
       JwtModule.forRoot({
          config: {
            tokenGetter: tokenGetter,
