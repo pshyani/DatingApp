@@ -15,8 +15,10 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
    
-      if(this.authService.loggedIn())
+      if(this.authService.loggedIn()){
+        console.log(this.authService.decodedToken.nameid);
         return true;
+      }
 
       this.alertify.error('You can not pass it without login');
       this.router.navigate(['/home']);
