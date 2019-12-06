@@ -16,13 +16,13 @@ export class AuthService {
 
   login(model: any) {
     console.log('login called');
-    return this.http.post(this.baseUrl + 'login', model).pipe(
+    return this.http.post(this.baseUrl + 'login', model)
+    .pipe(
       map((response: any) => {
         const user = response;
         if (user) {
           localStorage.setItem('token', user.token);          
-          this.decodedToken = this.jweHelper.decodeToken(user.token);
-          console.log(this.decodedToken.nameid);
+          this.decodedToken = this.jweHelper.decodeToken(user.token);         
         }
       })
     );
@@ -34,7 +34,6 @@ export class AuthService {
 
   loggedIn() {
     const token = localStorage.getItem('token');
-    this.decodedToken = this.jweHelper.decodeToken(token);
     return !this.jweHelper.isTokenExpired(token);
   }
 }

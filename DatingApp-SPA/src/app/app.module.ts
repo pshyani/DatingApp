@@ -28,6 +28,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemeberDetailsComponent } from './members/memeber-details/memeber-details.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { PreventUnSavedChanges } from './_guard/prevent-unsaved.guard';
 
 
 
@@ -82,6 +83,7 @@ export function tokenGetter() {
       MemberDetailsResolver,
       MemberListResolver,
       MemberEditResolver,
+      PreventUnSavedChanges,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
    bootstrap: [

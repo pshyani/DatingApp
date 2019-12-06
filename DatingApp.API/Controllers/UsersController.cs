@@ -66,5 +66,21 @@ namespace DatingApp.API.Controllers
 
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDTO userForUpdateDTO)
+        {
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var userFromRepo = await _repo.GetUser(id);
+            _mapper.Map(userForUpdateDTO, userFromRepo);
+            if(await _repo.SaveAll())
+                return  Ok();
+
+            throw new Exception("user with {id} Update failed");
+
+        }
+
+
     }
 }

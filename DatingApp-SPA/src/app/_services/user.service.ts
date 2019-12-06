@@ -49,4 +49,10 @@ export class UserService {
 
   }
 
+   updateUser(id: number, user: User){
+    console.log('update user called');
+    console.log(this.baseUrl + 'users/' + id);
+     return this.http.put(this.baseUrl + 'users/' + id, user);
+   }
+
 }
